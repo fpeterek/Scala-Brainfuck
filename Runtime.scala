@@ -29,9 +29,7 @@ class Runtime {
     case x: Loop => while (tape(i) != 0) run(x.body)
   }
 
-  def run(body: Body): Unit = {
-    body.body.foreach(handleStatement)
-  }
+  def run(body: Body): Unit = body.body.foreach(handleStatement)
 
 }
 
