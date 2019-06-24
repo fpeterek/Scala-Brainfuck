@@ -6,12 +6,10 @@ class Parser {
   private var lineNum = 0
   private var charNum = 0
 
-  private def endLoop(): Unit = {
-    try {
-      builder.endLoop()
-    } catch {
-      case _: Throwable => throw new RuntimeException(f"Unmatched token ']', line: $lineNum, character: $charNum")
-    }
+  private def endLoop(): Unit = try {
+    builder.endLoop()
+  } catch {
+    case _: Throwable => throw new RuntimeException(f"Unmatched token ']', line: $lineNum, character: $charNum")
   }
 
   private def matchChar(char: Char): Unit = char match {
@@ -50,10 +48,8 @@ class Parser {
     line.foreach(parseChar)
   }
 
-  private def check(): Unit = {
-    if (!builder.allLoopsClosed) {
-      throw new RuntimeException("Unclosed loop")
-    }
+  private def check(): Unit = if (!builder.allLoopsClosed) {
+    throw new RuntimeException("Unclosed loop")
   }
 
   private def parse(fun: () => Unit): Body = {
