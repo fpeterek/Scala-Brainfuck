@@ -14,10 +14,10 @@ class ASTBuilder {
   def decPtr(): Unit = mut(new MutatePtr(-1))
 
   def mut(a: Arithmetic): Unit =
-    if (currentScope.body.isEmpty || !currentScope.body.last.isInstanceOf[a.type]) {
+    if (currentScope.body.isEmpty || currentScope.body.last.getClass != a.getClass) {
       add(a)
     } else {
-      currentScope.body.last.asInstanceOf[a.type].value += a.value
+      currentScope.body.last.asInstanceOf[Arithmetic].value += a.value
     }
 
   def read(): Unit = add(new Input)
