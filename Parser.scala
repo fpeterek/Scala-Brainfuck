@@ -27,9 +27,7 @@ class Parser {
 
   private def parseChar(char: Char): Unit = {
     charNum += 1
-    if (!isComment) {
-      matchChar(char)
-    }
+    if (!isComment) matchChar(char)
   }
 
   private def reset(): Unit = {
